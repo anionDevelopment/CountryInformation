@@ -1,2 +1,7 @@
 ﻿Other/Resources/PlantUML/plantuml.jar
 Other/Resources/CycloneDXCLI/cyclonedx-cli.exe
+
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/*.lock
+Other/Logs
