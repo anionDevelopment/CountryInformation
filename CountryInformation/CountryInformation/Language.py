@@ -1,4 +1,5 @@
 
+
 class Language:
     name_in_english: str
     abbreviation_iso639_1: str

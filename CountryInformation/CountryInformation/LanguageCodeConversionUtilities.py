@@ -158,7 +158,7 @@ class LanguageCodeConversionUtilities:
         "pli": "pi",
         "pol": "pl",
         "por": "pt",
-        "prs": "fa",
+        "prs": "fa",  # because in fact you want to have fa-AF as culture for afghanistan. but the problem is that "prs" does not have an iso-639-1-code.
         "pus": "ps",
         "que": "qu",
         "roh": "rm",

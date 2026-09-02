@@ -44,6 +44,63 @@ class CountryInformation(unittest.TestCase):
         assert 0 < len(all_common_culture_language_combinations)
         # TODO add more assertions
 
+    def test_get_cultured_language_from_culture_code_with_bare_language_code(self) -> None:
+
+        # arrange
+        ci: CountryInformationCore = CountryInformationCore()
+
+        # act
+        cultured_language = ci.get_cultured_language_from_culture_code("de")
+
+        # assert
+        assert cultured_language.get_display_name_in_english() == "German"
+        assert cultured_language.get_country_or_associated_country().flag_emoji == "🇩🇪"
+
+    def test_get_cultured_language_from_culture_code_with_language_and_country_code(self) -> None:
+
+        # arrange
+        ci: CountryInformationCore = CountryInformationCore()
+
+        # act
+        cultured_language = ci.get_cultured_language_from_culture_code("de-AT")
+
+        # assert
+        assert cultured_language.get_display_name_in_english() == "German (Austria)"
+        assert cultured_language.get_country_or_associated_country().flag_emoji == "🇦🇹"
+
+    def test_get_cultured_language_from_culture_code_with_explicit_home_country_code(self) -> None:
+
+        # arrange
+        ci: CountryInformationCore = CountryInformationCore()
+
+        # act
+        cultured_language = ci.get_cultured_language_from_culture_code("de-DE")
+
+        # assert
+        assert cultured_language.get_display_name_in_english() == "German (Germany)"
+        assert cultured_language.get_country_or_associated_country().flag_emoji == "🇩🇪"
+
+    def test_get_cultured_language_from_culture_code_with_unknown_country_code(self) -> None:
+
+        # arrange
+        ci: CountryInformationCore = CountryInformationCore()
+
+        # act/assert
+        with self.assertRaises(ValueError):
+            ci.get_cultured_language_from_culture_code("de-XX")
+
+    def test_get_cultured_language_via_dict_access(self) -> None:
+
+        # arrange
+        ci: CountryInformationCore = CountryInformationCore()
+
+        # act
+        cultured_language = ci["de-AT"]
+
+        # assert
+        assert cultured_language.get_display_name_in_english() == "German (Austria)"
+        assert cultured_language.get_country_or_associated_country().flag_emoji == "🇦🇹"
+
     def __assert_no_duplicates(self,objects:set[str],attribute_name:str):
         seen = set()
         for obj in objects:
@@ -96,7 +153,7 @@ class CountryInformation(unittest.TestCase):
                 entry = entry+base_language
             languages_with_fallback_language_entries.add(entry)
         for common_culture_language_combination in all_common_culture_language_combinations:
-            entry: str = f"{common_culture_language_combination.get_abbreviation()};{common_culture_language_combination.language.abbreviation_iso639_1}"
+            entry: str = f"{common_culture_language_combination.get_abbreviation()};{common_culture_language_combination.get_language().abbreviation_iso639_1}"
             languages_with_fallback_language_entries.add(entry)
         GeneralUtilities.write_lines_to_file(languages_with_fallback_language_file, sorted(languages_with_fallback_language_entries, key=lambda entry: entry))
 
