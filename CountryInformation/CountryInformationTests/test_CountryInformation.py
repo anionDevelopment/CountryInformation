@@ -32,6 +32,20 @@ class CountryInformation(unittest.TestCase):
         assert 0 < len(all_languages)
         # TODO add more assertions
 
+    def test_get_all_languages_contains_filipino(self) -> None:
+
+        # arrange
+        ci: CountryInformationCore = CountryInformationCore()
+
+        # act
+        all_languages = ci.get_all_languages()
+
+        # assert
+        filipino_languages = [language for language in all_languages if language.abbreviation_iso639_3 == "fil"]
+        assert len(filipino_languages) == 1
+        assert filipino_languages[0].name_in_english == "Filipino"
+        assert filipino_languages[0].abbreviation_iso639_1 == "tl"
+
     def test_get_all_common_culture_language_combinations(self) -> None:
 
         # arrange
@@ -79,6 +93,19 @@ class CountryInformation(unittest.TestCase):
         # assert
         assert cultured_language.get_display_name_in_english() == "German (Germany)"
         assert cultured_language.get_country_or_associated_country().flag_emoji == "🇩🇪"
+
+    def test_get_cultured_language_from_culture_code_for_filipino(self) -> None:
+
+        # arrange
+        ci: CountryInformationCore = CountryInformationCore()
+
+        # act
+        cultured_language = ci.get_cultured_language_from_culture_code("tl-PH")
+
+        # assert
+        assert cultured_language.get_display_name_in_english() == "Filipino (Philippines)"
+        assert cultured_language.get_abbreviation() == "tl-PH"
+        assert cultured_language.get_country_or_associated_country().flag_emoji == "🇵🇭"
 
     def test_get_cultured_language_from_culture_code_with_unknown_country_code(self) -> None:
 

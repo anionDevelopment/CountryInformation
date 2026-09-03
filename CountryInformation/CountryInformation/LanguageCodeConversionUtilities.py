@@ -63,6 +63,7 @@ class LanguageCodeConversionUtilities:
         "fao": "fo",
         "fas": "fa",
         "fij": "fj",
+        "fil": "tl",  # because in fact you want to have tl-PH as culture for the philippines. but the problem is that "fil" does not have an iso-639-1-code.
         "fin": "fi",
         "fra": "fr",
         "fre": "fr",

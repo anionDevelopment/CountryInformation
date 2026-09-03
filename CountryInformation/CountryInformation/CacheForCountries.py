@@ -203,6 +203,8 @@ def get_associated_country_by_language_code(language_code_as_iso639_1_abbreviati
             country_code = "ER"
         case "tk":
             country_code = "TM"
+        case "tl":
+            country_code = "PH"
         case "tn":
             country_code = "BW"
         case "to":
